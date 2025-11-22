@@ -17,14 +17,6 @@ New-ItemProperty -Path "HKLM:\System\CurrentControlSet\Services\WAS\Parameters" 
       (Get-Content C:\Windows\System32\inetsrv\config\applicationHost.config).replace("$OldPath","$NewPath") | Set-Content C:\Windows\System32\inetsrv\config\applicationHost.config
       $UpdateConfig = &C:\Windows\system32\inetsrv\appcmd set config -section:system.applicationhost/configHistory -path:$NewPath\history
  
-# Ensure IIS Site has correct permission
-(need to convert this to a powershell equivalent:
-path: "F:\\inetpub\\wwwroot"
-      user: "IIS_IUSRS"
-      rights: "ReadAndExecute"
-      type: "allow"
-      state: present
-
 # Set NTFS permissions for IIS_IUSRS
 Write-Host "Setting permissions..."
 $acl = Get-Acl $NewPath
